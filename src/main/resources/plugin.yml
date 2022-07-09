@@ -1,0 +1,7 @@
+name: OStuPlugins
+version: '${project.version}'
+main: io.github.onebytegh.ostuplugins.ostuplugins.OStuPlugins
+api-version: 1.19
+authors: [ OneByte ]
+description: A plugin with a ton of stupid ideas for my youtube video
+website: github.com/OneByteGH
