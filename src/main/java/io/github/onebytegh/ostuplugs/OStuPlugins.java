@@ -18,4 +18,9 @@ public final class OStuPlugins extends JavaPlugin {
     public void onDisable() {
         // Plugin shutdown logic
     }
+
+
+    public HashMap<Integer, Boolean> getMap() {
+        return map;
+    }
 }

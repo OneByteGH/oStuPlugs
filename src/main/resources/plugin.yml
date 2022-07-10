@@ -5,3 +5,8 @@ api-version: 1.19
 authors: [ OneByte ]
 description: A plugin with a ton of stupid ideas for my youtube video
 website: github.com/OneByteGH
+commands:
+  ostuplugins:
+    usage: /<command>
+    description: Lets you turn ideas on/off and check out what ideas are available
+    aliases: [ ostu ]

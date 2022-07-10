@@ -32,7 +32,8 @@ public class OStuPluginsCommand implements CommandExecutor {
             12) Minecraft but every time you throw an egg, it hatches but into a pig
             """);
         } else {
-
+            plugin.getMap().put(Integer.parseInt(args[0]), plugin.getMap().get(Integer.parseInt(args[0])));
+            sender.sendMessage("Idea " + args[0] + " is now " + (plugin.getMap().get(Integer.parseInt(args[0])) ? "enabled" : "disabled"));
         }
         return true;
     }
