@@ -5,7 +5,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Villager;
 import org.bukkit.event.block.BlockBreakEvent;
 
-//I KNOW I SHOULDNT USE ONE FILE BUT I AM NOT THAT CREATIVE THAT I CAN NAME ALL OF THEM UNDER JAVA's LIMITS
+//I KNOW I SHOULDN'T USE ONE FILE BUT I AM NOT THAT CREATIVE THAT I CAN NAME ALL OF THEM UNDER JAVA's LIMITS
 public class Events {
     private final OStuPlugins plugin;
 
