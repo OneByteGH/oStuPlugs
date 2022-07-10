@@ -4,6 +4,7 @@ import io.github.onebytegh.ostuplugs.OStuPlugins;
 import org.bukkit.Location;
 import org.bukkit.entity.Villager;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 
 //I KNOW I SHOULDN'T USE ONE FILE BUT I AM NOT THAT CREATIVE THAT I CAN NAME ALL OF THEM UNDER JAVA's LIMITS
 public class Events {
@@ -26,7 +27,21 @@ public class Events {
         event.getPlayer().sendMessage("Sun Tzu: " + quotes[(int) (Math.random() * quotes.length)]);
     }
 
-
+    //IDEA 3: Minecraft but touching the grass kills you
+    public void touchGrassEvent(BlockBreakEvent event) {
+        if(!plugin.getMap().get(3)) return;
+        if(event.getBlock().getType().name().equals("GRASS")) {
+            event.getPlayer().sendMessage("You touched the grass and died");
+            event.getPlayer().setHealth(0);
+        }
+    }
+    public void onWalkOnGrassEvent(PlayerMoveEvent event) {
+        if(!plugin.getMap().get(3)) return;
+        if(event.getTo().getBlock().getType().name().equals("GRASS")) {
+            event.getPlayer().sendMessage("You touched the grass and died");
+            event.getPlayer().setHealth(0);
+        }
+    }
 
     //region Sun Tzu Quotes
     private final String[] quotes = {
