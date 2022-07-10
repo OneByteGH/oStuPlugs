@@ -3,6 +3,7 @@ package io.github.onebytegh.ostuplugs.events;
 import io.github.onebytegh.ostuplugs.OStuPlugins;
 import org.bukkit.Location;
 import org.bukkit.entity.Villager;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
@@ -16,6 +17,7 @@ public class Events {
 
 
     //IDEA 2: Everytime you break a block, a villager spawns and says a Sun Tzu quote
+    @EventHandler
     public void breakBlockEvent(BlockBreakEvent event) {
         if(!plugin.getMap().get(2)) return;
         Location loc = event.getBlock().getLocation().add(5, 0, 5);
@@ -28,6 +30,7 @@ public class Events {
     }
 
     //IDEA 3: Minecraft but touching the grass kills you
+    @EventHandler
     public void touchGrassEvent(BlockBreakEvent event) {
         if(!plugin.getMap().get(3)) return;
         if(event.getBlock().getType().name().equals("GRASS")) {
@@ -35,6 +38,7 @@ public class Events {
             event.getPlayer().setHealth(0);
         }
     }
+    @EventHandler
     public void onWalkOnGrassEvent(PlayerMoveEvent event) {
         if(!plugin.getMap().get(3)) return;
         if(event.getTo().getBlock().getType().name().equals("GRASS")) {
