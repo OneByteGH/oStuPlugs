@@ -18,6 +18,8 @@ import org.bukkit.inventory.CraftingInventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.RayTraceResult;
 import org.bukkit.util.Vector;
 
@@ -196,6 +198,25 @@ public class Events implements Listener {
         }, 20 * 4);
     }
 
+    //IDEA 10: Minecraft but whenever you look at a sheep, it glows and floats
+    @EventHandler
+    public void lookAtSheep(PlayerMoveEvent event) {
+        //check if the movement was yaw pitch and raw
+        Player player = event.getPlayer();
+        RayTraceResult rayTraceResult = player.getWorld().rayTraceEntities(player.getEyeLocation(), player.getEyeLocation().getDirection(), 10);
+
+        if(rayTraceResult == null) return;
+        if(rayTraceResult.getHitEntity() == null) return;
+        if(rayTraceResult.getHitEntity().getType() != EntityType.SHEEP) return;
+
+        Sheep sheep = (Sheep) rayTraceResult.getHitEntity();
+        sheep.setGlowing(true);
+        sheep.setCustomName("_jeb");
+        sheep.setCustomNameVisible(false);
+
+        PotionEffect effect = new PotionEffect(PotionEffectType.LEVITATION, Integer.MAX_VALUE, 1, false, false);
+        sheep.addPotionEffect(effect);
+    }
     //region Sun Tzu Quotes
     private final String[] quotes = {
             "The general who wins the battle makes many calculations in his temple before the battle is fought. The general who loses makes but few calculations beforehand.",
