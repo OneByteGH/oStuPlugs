@@ -8,6 +8,7 @@ import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.util.Vector;
 
@@ -71,6 +72,22 @@ public class Events {
         //changes the name after 2 seconds
         plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> villager.setCustomName("Never gonna give you up"), 20 * 2);
     }
+
+    //IDEA 5: Minecraft but you cant mine or craft
+    @EventHandler
+    public void onBlockBreakEvent(BlockBreakEvent event) {
+        if(!plugin.getMap().get(5)) return;
+        event.getPlayer().getWorld().setType(event.getBlock().getLocation(), event.getBlock().getType());
+        event.getPlayer().sendMessage("Oh no no no, we don't do that here");
+    }
+    @EventHandler
+    public void onCraftEvent(CraftItemEvent event) {
+        if(!plugin.getMap().get(5)) return;
+        event.setCancelled(true);
+        event.getWhoClicked().sendMessage("Nope, we don't do either");
+    }
+
+
 
     //region Sun Tzu Quotes
     private final String[] quotes = {
