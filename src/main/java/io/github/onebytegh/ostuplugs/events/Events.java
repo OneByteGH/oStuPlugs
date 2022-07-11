@@ -11,6 +11,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.CraftingInventory;
 import org.bukkit.inventory.ItemFlag;
@@ -146,6 +147,55 @@ public class Events {
             craftInv.setResult(wetWater);
         }
     }
+
+    //IDEA 8: Minecraft without minecraft
+    @EventHandler
+    public void onPlayerMove(PlayerMoveEvent event) {
+        if(!plugin.getMap().get(8)) return;
+        event.getPlayer().kickPlayer("No Minecraft");
+        plugin.getMap().put(8, false);
+    }
+
+    //IDEA 9: Minecraft but it makes it look like you have friends
+    @EventHandler
+    public void onPlayerJoin(PlayerJoinEvent event) {
+        if(!plugin.getMap().get(9)) return;
+        event.getPlayer().sendMessage("John: Yo OneByte, how ya doing?");
+        event.getPlayer().sendMessage("Donald: I am orange, how are you?");
+        event.getPlayer().sendMessage("Stacy: Hey OneByte, I love you <3");
+
+        plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
+            event.getPlayer().sendMessage("Server: HA HA HA NOOB, You ain't got no bitches, this was all fake now cry in your corner");
+            //make an hollow box around the player of obsidian
+            World world = event.getPlayer().getWorld();
+            double startX = 0.0D;
+            double startY = 0.0D;
+            double startZ = 0.0D;
+            Material material = Material.DIRT;
+
+            for (int x = 0; x < 3; x++) {
+                for (int z = 0; z < 3; z++) {
+                    for (int y = 0; y <= 3; y++) {
+                        Location loc = new Location(world, startX + x, startY + y, startZ + z);
+                        if (y != 3 && y!=0) {
+                            if ((x >= 0 && z == 0) || (x >= 0 && z == 2) ||( x == 0 && z >= 0) || (x == 2 && z >= 0))
+                                loc.getBlock().setType(material);
+                        } else {
+                            loc.getBlock().setType(material);
+                        }
+                    }
+                }
+            }
+
+            event.getPlayer().teleport(new Location(world, startX + 1, startY + 1, startZ + 1));
+
+            Villager villager = (Villager) world.spawnEntity(new Location(world, startX + 1, startY + 1, startZ + 1), EntityType.VILLAGER);
+            villager.setCustomName("No Bitches?");
+            villager.setCustomNameVisible(true);
+            villager.setInvulnerable(true);
+        }, 20 * 4);
+    }
+
     //region Sun Tzu Quotes
     private final String[] quotes = {
             "The general who wins the battle makes many calculations in his temple before the battle is fought. The general who loses makes but few calculations beforehand.",
