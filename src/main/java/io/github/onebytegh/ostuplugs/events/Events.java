@@ -36,7 +36,6 @@ public class Events implements Listener {
         this.plugin = oStuPlugins;
     }
 
-
     //IDEA 2: Everytime you break a block, a villager spawns and says a Sun Tzu quote
     @EventHandler
     public void breakBlockEvent(BlockBreakEvent event) {
@@ -89,7 +88,7 @@ public class Events implements Listener {
         plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> villager.setCustomName("Never gonna give you up"), 20 * 2);
     }
 
-    //IDEA 5: Minecraft but you cant mine or craft
+    //IDEA 5: Minecraft but you can't mine or craft
     @EventHandler
     public void onBlockBreakEvent(BlockBreakEvent event) {
         if(!plugin.getMap().get(5)) return;
@@ -142,7 +141,7 @@ public class Events implements Listener {
             //if there are two water buckets, craft wet water
             ItemStack wetWater = new ItemStack(Material.WATER_BUCKET);
             ItemMeta wetWaterMeta = wetWater.getItemMeta();
-
+            if(wetWaterMeta == null) return;
             wetWaterMeta.setDisplayName("Wet Water");
             wetWater.addUnsafeEnchantment(Enchantment.DURABILITY, 1);
             wetWaterMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
@@ -171,7 +170,7 @@ public class Events implements Listener {
 
         plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
             event.getPlayer().sendMessage(ChatColor.AQUA + "Server:" + ChatColor.GOLD + " HA HA HA NOOB, You ain't got no bitches, this was all fake now cry in your corner");
-            //make an hollow box around the player of obsidian
+            //make a hollow box around the player of obsidian
             World world = event.getPlayer().getWorld();
             double startX = 0.0D;
             double startY = 0.0D;
@@ -183,7 +182,7 @@ public class Events implements Listener {
                     for (int y = 0; y <= 3; y++) {
                         Location loc = new Location(world, startX + x, startY + y, startZ + z);
                         if (y != 3 && y!=0) {
-                            if ((x >= 0 && z == 0) || (x >= 0 && z == 2) ||( x == 0 && z >= 0) || (x == 2 && z >= 0))
+                            if ((z == 0) || (z == 2) ||( x == 0) || (x == 2))
                                 loc.getBlock().setType(material);
                         } else {
                             loc.getBlock().setType(material);
@@ -221,7 +220,7 @@ public class Events implements Listener {
         sheep.addPotionEffect(effect);
     }
 
-    //IDEA 11: Minecraft but only dogs (wolfs for the nerds)
+    //IDEA 11: Minecraft but only dogs (wolves for the nerds)
     @EventHandler
     public void onEntitySpawn(EntitySpawnEvent event) {
         if(!plugin.getMap().get(11)) return;
@@ -248,7 +247,7 @@ public class Events implements Listener {
             "Strategy without tactics is the slowest route to victory. Tactics without strategy is the noise before defeat.",
             "All warfare is based on deception.",
             "If fighting is sure to result in victory, then you must fight.",
-            "One defends when his strength is inadaquate, he attacks when it is abundant.",
+            "One defends when his strength is inadequate, he attacks when it is abundant.",
             "The quality of decision is like the well-timed swoop of a falcon which enables it to strike and destroy its victim.",
             "When the enemy is at ease, be able to weary him; when well fed, to starve him; when at rest, to make him move. Appear at places to which he must hasten; move swiftly where he does not expect you.",
             "If you know your enemy and you know yourself you need not fear the results of a hundred battles. If you know yourself but not the enemy for every victory gained you will also suffer a defeat. If you know neither the enemy nor yourself you will succumb in every battle.",
@@ -276,7 +275,7 @@ public class Events implements Listener {
             "It is essential to seek out enemy agents who have come to conduct espionage against you and to bribe them to serve you. Give them instructions and care for them. Thus doubled agents are recruited and used.",
             "Now the reason the enlightened prince and the wise general conquer the enemy whenever they move and their achievements surpass those of ordinary men is foreknowledge.",
             "And therefore those skilled in war bring the enemy to the field of battle and are not brought there by him.",
-            "There is no instance of a nation benefitting from prolonged warfare.",
+            "There is no instance of a nation benefiting from prolonged warfare.",
             "When able to attack, we must seem unable; when using our forces, we must seem inactive; when we are near, we must make the enemy believe we are far away; when far away, we must make him believe we are near.",
             "When torrential water tosses boulders, it is because of its momentum. When the strike of a hawk breaks the body of its prey, it is because of timing.",
             "Secret operations are essential in war; upon them the army relies to make its every move.",
