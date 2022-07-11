@@ -1,6 +1,7 @@
 package io.github.onebytegh.ostuplugs.events;
 
 import io.github.onebytegh.ostuplugs.OStuPlugins;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -47,7 +48,7 @@ public class Events implements Listener {
         villager.setCustomNameVisible(true);
         villager.setTarget(event.getPlayer());
 
-        event.getPlayer().sendMessage("Sun Tzu: " + quotes[(int) (Math.random() * quotes.length)]);
+        event.getPlayer().sendMessage(ChatColor.AQUA + "Sun Tzu: " + ChatColor.GOLD + quotes[(int) (Math.random() * quotes.length)]);
     }
 
     //IDEA 3: Minecraft but touching the grass kills you
@@ -55,7 +56,7 @@ public class Events implements Listener {
     public void touchGrassEvent(BlockBreakEvent event) {
         if(!plugin.getMap().get(3)) return;
         if(event.getBlock().getType().name().equals("GRASS")) {
-            event.getPlayer().sendMessage("You touched the grass and died");
+            event.getPlayer().sendMessage(ChatColor.RED + "You touched the grass and died");
             event.getPlayer().setHealth(0);
         }
     }
@@ -63,7 +64,7 @@ public class Events implements Listener {
     public void onWalkOnGrassEvent(PlayerMoveEvent event) {
         if(!plugin.getMap().get(3)) return;
         if(event.getTo().getBlock().getType().name().equals("GRASS")) {
-            event.getPlayer().sendMessage("You touched the grass and died");
+            event.getPlayer().sendMessage(ChatColor.RED + "You touched the grass and died");
             event.getPlayer().setHealth(0);
         }
     }
@@ -93,13 +94,13 @@ public class Events implements Listener {
     public void onBlockBreakEvent(BlockBreakEvent event) {
         if(!plugin.getMap().get(5)) return;
         event.getPlayer().getWorld().setType(event.getBlock().getLocation(), event.getBlock().getType());
-        event.getPlayer().sendMessage("Oh no no no, we don't do that here");
+        event.getPlayer().sendMessage(ChatColor.RED + "Oh no no no, we don't do that here");
     }
     @EventHandler
     public void onCraftEvent(CraftItemEvent event) {
         if(!plugin.getMap().get(5)) return;
         event.setCancelled(true);
-        event.getWhoClicked().sendMessage("Nope, we don't do either");
+        event.getWhoClicked().sendMessage(ChatColor.RED + "Nope, we don't do either");
     }
 
     //IDEA 6: Minecraft but if you look at baby villagers, they kick you in the balls
@@ -118,7 +119,7 @@ public class Events implements Listener {
         //if the entity is a villager, kick em in the balls
         Villager villager = (Villager) rayTraceResult.getHitEntity();
         villager.setTarget(player);
-        event.getPlayer().sendMessage("You got kicked in the balls");
+        event.getPlayer().sendMessage(ChatColor.RED + "You got kicked in the balls. *laughs at this noob*");
         event.getPlayer().setHealth(event.getPlayer().getHealth() - 1);
     }
 
@@ -164,12 +165,12 @@ public class Events implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         if(!plugin.getMap().get(9)) return;
-        event.getPlayer().sendMessage("John: Yo OneByte, how ya doing?");
-        event.getPlayer().sendMessage("Donald: I am orange, how are you?");
-        event.getPlayer().sendMessage("Stacy: Hey OneByte, I love you <3");
+        event.getPlayer().sendMessage(ChatColor.AQUA + "John:" + ChatColor.GOLD + " Yo OneByte, how ya doing?");
+        event.getPlayer().sendMessage(ChatColor.AQUA + "Donald:" + ChatColor.GOLD + " I am orange, how are you?");
+        event.getPlayer().sendMessage(ChatColor.AQUA + "Stacy:" + ChatColor.GOLD + " Hey OneByte, I love you <3");
 
         plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-            event.getPlayer().sendMessage("Server: HA HA HA NOOB, You ain't got no bitches, this was all fake now cry in your corner");
+            event.getPlayer().sendMessage(ChatColor.AQUA + "Server:" + ChatColor.GOLD + " HA HA HA NOOB, You ain't got no bitches, this was all fake now cry in your corner");
             //make an hollow box around the player of obsidian
             World world = event.getPlayer().getWorld();
             double startX = 0.0D;
