@@ -24,7 +24,7 @@ Go to the project directory
 Install dependencies
 
 ```bash
-  maven install
+  mvn install
 ```
 And boom, you are good to go 
 
