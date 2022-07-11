@@ -2,15 +2,25 @@ package io.github.onebytegh.ostuplugs.events;
 
 import io.github.onebytegh.ostuplugs.OStuPlugins;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.inventory.CraftItemEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.inventory.CraftingInventory;
+import org.bukkit.inventory.ItemFlag;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.util.RayTraceResult;
 import org.bukkit.util.Vector;
+
+import java.util.Arrays;
+import java.util.List;
 
 //I KNOW I SHOULDN'T USE ONE FILE BUT I AM NOT THAT CREATIVE THAT I CAN NAME ALL OF THEM UNDER JAVA's LIMITS
 public class Events {
@@ -107,6 +117,35 @@ public class Events {
         event.getPlayer().setHealth(event.getPlayer().getHealth() - 1);
     }
 
+    //IDEA 7: Minecraft but you can craft wet water
+    @EventHandler
+    public void onInventoryClick(InventoryClickEvent event) {
+        if(!plugin.getMap().get(7)) return;
+        if(event.getView().getTitle().equals("Crafting")) {
+            CraftingInventory craftInv = (CraftingInventory) event.getView();
+            //check if there are two water buckets in the inventory
+            int waterBuckets = 0;
+
+            for(ItemStack itemStack : craftInv.getMatrix()) {
+                if(itemStack == null) continue;
+                if(itemStack.getType().name().equals("WATER_BUCKET")) waterBuckets++;
+            }
+
+            if(waterBuckets != 2) return;
+
+            //if there are two water buckets, craft wet water
+            ItemStack wetWater = new ItemStack(Material.WATER_BUCKET);
+            ItemMeta wetWaterMeta = wetWater.getItemMeta();
+
+            wetWaterMeta.setDisplayName("Wet Water");
+            wetWater.addUnsafeEnchantment(Enchantment.DURABILITY, 1);
+            wetWaterMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+            wetWaterMeta.setLore(List.of("A bucket of wet water."));
+            wetWater.setItemMeta(wetWaterMeta);
+
+            craftInv.setResult(wetWater);
+        }
+    }
     //region Sun Tzu Quotes
     private final String[] quotes = {
             "The general who wins the battle makes many calculations in his temple before the battle is fought. The general who loses makes but few calculations beforehand.",
