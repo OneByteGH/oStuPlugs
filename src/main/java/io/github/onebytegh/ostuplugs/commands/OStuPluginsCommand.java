@@ -23,7 +23,7 @@ public class OStuPluginsCommand implements CommandExecutor {
              3) Minecraft but touching the grass kills you
              4) Minecraft but when you take damage, it rickrolls you
              5) Minecraft but you cant mine or craft
-             6) Minecraft but if you look at baby villagers, they gang up and kick you in the balls
+             6) Minecraft but if you look at baby villagers, kick you in the balls
              7) Minecraft but you can craft wet water
              8) Minecraft without minecraft
              9) Minecraft but make it look like you have friends

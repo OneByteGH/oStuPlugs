@@ -2,14 +2,14 @@ package io.github.onebytegh.ostuplugs.events;
 
 import io.github.onebytegh.ostuplugs.OStuPlugins;
 import org.bukkit.Location;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Villager;
+import org.bukkit.World;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.util.RayTraceResult;
 import org.bukkit.util.Vector;
 
 //I KNOW I SHOULDN'T USE ONE FILE BUT I AM NOT THAT CREATIVE THAT I CAN NAME ALL OF THEM UNDER JAVA's LIMITS
@@ -87,7 +87,25 @@ public class Events {
         event.getWhoClicked().sendMessage("Nope, we don't do either");
     }
 
+    //IDEA 6: Minecraft but if you look at baby villagers, they kick you in the balls
+    @EventHandler
+    public void onLookAtVillagerEvent(PlayerMoveEvent event) {
+        if(!plugin.getMap().get(6)) return;
+        Player player = event.getPlayer();
+        World world = player.getWorld();
 
+        //get the entity the player is lookin at and filtering
+        RayTraceResult rayTraceResult = world.rayTraceEntities(player.getEyeLocation(), player.getEyeLocation().getDirection(), 10);
+        if(rayTraceResult == null) return;
+        if(rayTraceResult.getHitEntity() == null) return;
+        if(rayTraceResult.getHitEntity().getType() != EntityType.VILLAGER) return;
+
+        //if the entity is a villager, kick em in the balls
+        Villager villager = (Villager) rayTraceResult.getHitEntity();
+        villager.setTarget(player);
+        event.getPlayer().sendMessage("You got kicked in the balls");
+        event.getPlayer().setHealth(event.getPlayer().getHealth() - 1);
+    }
 
     //region Sun Tzu Quotes
     private final String[] quotes = {
