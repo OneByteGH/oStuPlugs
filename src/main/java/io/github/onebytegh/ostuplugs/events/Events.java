@@ -2,10 +2,14 @@ package io.github.onebytegh.ostuplugs.events;
 
 import io.github.onebytegh.ostuplugs.OStuPlugins;
 import org.bukkit.Location;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.util.Vector;
 
 //I KNOW I SHOULDN'T USE ONE FILE BUT I AM NOT THAT CREATIVE THAT I CAN NAME ALL OF THEM UNDER JAVA's LIMITS
 public class Events {
@@ -25,6 +29,7 @@ public class Events {
         Villager villager = (Villager) loc.getWorld().spawnEntity(loc, org.bukkit.entity.EntityType.VILLAGER);
         villager.setCustomName("Sun Tzu");
         villager.setCustomNameVisible(true);
+        villager.setTarget(event.getPlayer());
 
         event.getPlayer().sendMessage("Sun Tzu: " + quotes[(int) (Math.random() * quotes.length)]);
     }
@@ -45,6 +50,26 @@ public class Events {
             event.getPlayer().sendMessage("You touched the grass and died");
             event.getPlayer().setHealth(0);
         }
+    }
+
+    //IDEA 4: Minecraft but when you take damage, it rickrolls you
+    @EventHandler
+    public void takeDamageEvent(EntityDamageEvent event) {
+        if(!plugin.getMap().get(4)) return;
+        if(event.getEntityType() != EntityType.PLAYER) return;
+
+        //get the block behind the player
+        Vector inverseDirectionVec = event.getEntity().getLocation().getDirection().normalize().multiply(-1);
+        Location loc = event.getEntity().getLocation().add(inverseDirectionVec);
+
+        //spawn the villager
+        Villager villager = (Villager) loc.getWorld().spawnEntity(loc, EntityType.VILLAGER);
+        villager.setCustomName("NOT SUS AT ALL VILLAGER");
+        villager.setCustomNameVisible(true);
+        villager.setTarget((LivingEntity) event.getEntity());
+
+        //changes the name after 2 seconds
+        plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> villager.setCustomName("Never gonna give you up"), 20 * 2);
     }
 
     //region Sun Tzu Quotes
