@@ -13,6 +13,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.player.PlayerEggThrowEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.CraftingInventory;
@@ -226,6 +227,14 @@ public class Events implements Listener {
         if(event.getEntityType() != EntityType.WOLF) return;
         event.setCancelled(true);
         event.getLocation().getWorld().spawnEntity(event.getLocation(), EntityType.WOLF);
+    }
+
+    //IDEA 12: Minecraft but every time you throw an egg, it hatches but into a bat
+    @EventHandler
+    public void onEggThrow(PlayerEggThrowEvent event) {
+        if(!plugin.getMap().get(12)) return;
+        event.setHatchingType(EntityType.BAT);
+        event.setHatching(true);
     }
 
     //region Sun Tzu Quotes
