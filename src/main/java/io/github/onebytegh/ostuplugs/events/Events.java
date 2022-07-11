@@ -201,7 +201,7 @@ public class Events implements Listener {
     //IDEA 10: Minecraft but whenever you look at a sheep, it glows and floats
     @EventHandler
     public void lookAtSheep(PlayerMoveEvent event) {
-        //check if the movement was yaw pitch and raw
+        if(!plugin.getMap().get(10)) return;
         Player player = event.getPlayer();
         RayTraceResult rayTraceResult = player.getWorld().rayTraceEntities(player.getEyeLocation(), player.getEyeLocation().getDirection(), 10);
 
@@ -217,6 +217,8 @@ public class Events implements Listener {
         PotionEffect effect = new PotionEffect(PotionEffectType.LEVITATION, Integer.MAX_VALUE, 1, false, false);
         sheep.addPotionEffect(effect);
     }
+
+
     //region Sun Tzu Quotes
     private final String[] quotes = {
             "The general who wins the battle makes many calculations in his temple before the battle is fought. The general who loses makes but few calculations beforehand.",
