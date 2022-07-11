@@ -10,6 +10,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -218,6 +219,14 @@ public class Events implements Listener {
         sheep.addPotionEffect(effect);
     }
 
+    //IDEA 11: Minecraft but only dogs (wolfs for the nerds)
+    @EventHandler
+    public void onEntitySpawn(EntitySpawnEvent event) {
+        if(!plugin.getMap().get(11)) return;
+        if(event.getEntityType() != EntityType.WOLF) return;
+        event.setCancelled(true);
+        event.getLocation().getWorld().spawnEntity(event.getLocation(), EntityType.WOLF);
+    }
 
     //region Sun Tzu Quotes
     private final String[] quotes = {
