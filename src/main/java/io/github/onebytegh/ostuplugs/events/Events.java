@@ -7,6 +7,7 @@ import org.bukkit.World;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.inventory.CraftItemEvent;
@@ -20,11 +21,10 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.util.RayTraceResult;
 import org.bukkit.util.Vector;
 
-import java.util.Arrays;
 import java.util.List;
 
 //I KNOW I SHOULDN'T USE ONE FILE BUT I AM NOT THAT CREATIVE THAT I CAN NAME ALL OF THEM UNDER JAVA's LIMITS
-public class Events {
+public class Events implements Listener {
     private final OStuPlugins plugin;
 
     public Events(OStuPlugins oStuPlugins) {
